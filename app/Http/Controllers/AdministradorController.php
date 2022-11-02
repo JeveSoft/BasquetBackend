@@ -3,83 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Administrador;
+use App\Models\Equipo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AdministradorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function login(Request $request){
+        $adminJson= Administrador::get();
+        $admins=json_decode($adminJson,true);
+        $logueado=false;
+        foreach($admins as $admin){
+            if($admin['CODADMINISTRADOR']==$request['id'] && $admin['CONTRASENA']==$request['password']){
+                $logueado=true;
+                $adminL = Administrador::findOrFail($request['id']);
+                $adminL->API_TOKEN=Str::random(150);
+                $adminL->save();
+            }
+        }
+        if($logueado){
+            return \response()->json(["res" => true, "message" => "logueado"],200);
+        }else{
+            return \response()->json(["res" => false, "message" => "usuario o contraseña incorreacto"],200);
+        }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function logout(Request $request){
+        $adminJson= Administrador::get();
+        $admins=json_decode($adminJson,true);
+        $deslogueado=false;
+        foreach($admins as $admin){
+            if($admin['CODADMINISTRADOR']==$request['id'] && $admin['CONTRASENA']==$request['password']){
+                $deslogueado=true;
+                $adminL = Administrador::findOrFail($request['id']);
+                $adminL->API_TOKEN="";
+                $adminL->save();
+            }
+        }
+        if($deslogueado){
+            return \response()->json(["res" => true, "message" => "adios"],200);
+        }else{
+            return false;
+        }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Administrador $administrador)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Administrador $administrador)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Administrador $administrador)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Administrador $administrador)
-    {
-        //
+    public function selectEq(){
+        return Equipo::get();
     }
 }

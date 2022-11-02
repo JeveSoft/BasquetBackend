@@ -12,19 +12,23 @@ class DelegadoController extends Controller
 
     public function index(Request $request)
     {
+        if(validar($request->hash)){
+            $delegados = Delegado::with(['equipo:id,nombre,delegado_id,categoria_id'])->get();
+            return \response()->json($delegados,200);
+        }else{
+            return \response()->json(["res" => false, "message" => "inicie sesion"],200);
+        }
+
         $bandera = false;
         
-        $delegados = Delegado::with(['equipo:id,nombre,delegado_id,categoria_id'])->get();
-        for($i = 0; $i < count($delegados) && !$bandera; $i++){
+       /*  for($i = 0; $i < count($delegados) && !$bandera; $i++){
             if($delegados[$i]->api_token == $request->hash){
                 $bandera = true;
             }
         }
         if($bandera){
-            return \response()->json($delegados,200);
         }else{
-            return \response()->json(["res" => false, "message" => "inicie sesion"],200);
-        }
+        } */
         /*   $token = $delegado->api_token; */
         /* $delegado = Delegado::whereci($request->ci)->first();
         if( !is_null($delegado->api_token)){
@@ -34,6 +38,16 @@ class DelegadoController extends Controller
         //select ^from producto inner join users on ... 
       //$delegados = Delegado::with([user:id,nombre,delgado_id,categoria])->orwhere("nombre","=","$request->txtBuscar")->get();
 
+    }
+    private function validar(){
+        $delegado = Delegado::all();
+       
+        for($i = 0; $i < count($delegado); $i++){
+            if($delegado[$i]->api_token == $hash){
+                return true;
+            }
+        }
+        return false;
     }
 
     public function store(Request $request)
@@ -69,7 +83,7 @@ class DelegadoController extends Controller
     {
         //delete from delegados where id = $id
         try{
-        Producto::destroy($id);
+        Delegado::destroy($id);
         return \response()->json(["res" => true,"message" => "Eliminado correctamente"],200);
         }
         catch(\Exception $e){

@@ -8,16 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Campeonato extends Model
 {
     use HasFactory;
-    protected $table="campeonatos";
+    protected $table="Campeonato";
+    protected $primaryKey="IDCAMPEONATO";
     protected $fillable = [
-        "iniPreInscripcion",
-        "finPreIncripcion",
-        "iniIncripcion",
-        "finInscripcion",
-        "finLiga",
-        "pagoMitad",
-        "pagoEntero"
+        "DESCRIPCION",
+        "INIPREINSCRIPCION",
+        "FINPREINSCRIPCION",
+        "INIINSCRIPCION",
+        "FININSCRIPCION",
+        "INICIOLIGA",
+        "FINLIGA",
+        "PAGOMITAD",
+        "PAGOCOMPLETO"
     ];
+
+    public $timestamps = false;
+    
     public function inscripciones(){
         return $this->hasMany(Inscripcion::class);
     }

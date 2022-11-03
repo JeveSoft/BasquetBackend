@@ -10,11 +10,14 @@ class EquipoController extends Controller
     public function store(Request $request)
     {
         $equipo = new Equipo;
-        $equipo->CODEQUIPO=$request->CODEQUIPO;
-        $equipo->CODDELEGADO=$request->CODDELEGADO;
-        $equipo->NOMBREEQUIPO=$request->NOMBREEQUIPO;
-        $equipo->CANTIDADJUGADORES=$request->CANTIDADJUGADORES;
-        $equipo->PUNTOS=$request->PUNTOS;
+        $equipo->IDEQUIPO=$request->IDEQUIPO;
+        $equipo->NOMBRE=$request->NOMBRE;
+        $equipo->SIGLAS=$request->SIGLAS;
+        $equipo->LOGO=$request->LOGO;
+        $equipo->CANTIDAD=$request->CANTIDAD;
+        $equipo->FECHACREACION=$request->FECHACREACION;
+        $equipo->IDDELEGADO=$request->IDDELEGADO;
+        $equipo->CATEGORIA=$request->CATEGORIA;
         $equipo->save();
         return $equipo;
     }

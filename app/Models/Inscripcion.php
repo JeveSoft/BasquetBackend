@@ -9,21 +9,15 @@ class Inscripcion extends Model
 {
     use HasFactory;
 
-    protected $table = "inscripciones";
-    
+    protected $table = "Incripcion";
+    protected $primaryKey="IDINSCRIPCION";
     protected $fillable = [
-            "comprobantePago",
-            "pagoMedioUno",
-            "pagoMedioDos",
-            "pagoEntero",
-            "equipo_id",
-            "campeonato_id"
+            "IDEQUIPO",
+            "COMPROBANTEPAGO",
+            "PAGOMEDIO",
+            "COMPROBANTEMEDIO",
+            "HABILITADO",
+            "HABILITADOSIN"
     ] ;
-
-    public function equipo(){
-        return $this->belongsTo(Equipo::class);
-    }
-    public function campeonato(){
-        return $this->belongsTo(Campeonato::class);
-    }
+    public $timestamps = false;
 }

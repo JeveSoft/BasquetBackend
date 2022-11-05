@@ -50,4 +50,24 @@ class CampeonatoController extends Controller
         $campeonato->save();
         return $campeonato;
     }
+
+    public function pagoMedio(Request $request, $id){
+        $campeonato = Campeonato::find($id);
+        $campeonato->PAGOMITAD = $this->cargarImagen($request->imagen,$id);
+        $producto->save();
+        return \response()->json(["res"=> true, "message"=>"imagen cargaga"]);
+    }
+
+    private function cargarImagen($file, $id){
+        $nombreArchivo = time() . "_{$id}." . $file->getClientOriginalExtension();
+        $file->move(\public_path("imagenes/pagosQr"), $nombreArchivo);
+        return $nombreArchivo;
+    }
+    public function pagoCompleto(Request $request, $id){
+        $campeonato = Campeonato::find($id);
+        $campeonato->PAGOCOMPLETO = $this->cargarImagen($request->imagen,$id);
+        $producto->save();
+        return \response()->json(["res"=> true, "message"=>"imagen cargaga"]);
+    }
+
 }

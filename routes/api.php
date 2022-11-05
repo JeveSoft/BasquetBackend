@@ -37,3 +37,11 @@ Route::post("login",[ \App\Http\Controllers\UserController::class, "login"] );
 
 /* Campeonato */
 Route::apiResource('campeonato',\App\Http\Controllers\CampeonatoController::class);
+
+Route::put("pagoMedio/{id}", [ \App\Http\Controllers\CampeonatoController::class, "pagoMedio"]);
+
+Route::put("pagoCompleto/{id}", [ \App\Http\Controllers\CampeonatoController::class, "pagoCompleto"]);
+
+Route::put("pagcomprobantePagooCompleto/{id}", [ \App\Http\Controllers\CampeonatoController::class, "comprobantePago"]);
+
+Route::put("comprobantePagoMedio/{id}", [ \App\Http\Controllers\CampeonatoController::class, "comprobantePagoMedio"]);

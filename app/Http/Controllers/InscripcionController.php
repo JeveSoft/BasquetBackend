@@ -19,5 +19,25 @@ class InscripcionController extends Controller
         $inscripcion->HABILITADOSIN =$request->HABILITADOSIN;
         $inscripcion->save();
         return $inscripcion;
-    }
+}
+
+public function comprobantePago(Request $request, $id){
+    $inscripcion = Inscripcion::find($id);
+    $inscripcion->COMPROBANTEPAGO = $this->cargarImagen($request->imagen,$id);
+    $inscripcion->save();
+    return \response()->json(["res"=> true, "message"=>"imagen cargada"]);
+}
+
+public function comprobantePagoMedio(Request $request, $id){
+    $inscripcion = Inscripcion::find($id);
+    $inscripcion->PAGOCOMPLETO = $this->cargarImagen($request->imagen,$id);
+    $producto->save();
+    return \response()->json(["res"=> true, "message"=>"imagen cargada"]);
+ }
+
+private function cargarImagen($file, $id){
+    $nombreArchivo = time() . "_{$id}." . $file->getClientOriginalExtension();
+    $file->move(\public_path("imagenes/comprobantePago"), $nombreArchivo);
+    return $nombreArchivo;
+}
 }

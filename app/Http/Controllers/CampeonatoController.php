@@ -11,7 +11,6 @@ class CampeonatoController extends Controller
         return Campeonato::get();
     }
 
-
     public function updateFechas(Request $request, $id)
     {
         $campeonato = Campeonato::findOrFail($id);

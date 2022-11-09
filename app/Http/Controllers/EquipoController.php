@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class EquipoController extends Controller
 {
+
+
     public function store(Request $request)
     {
         $equipo = new Equipo;
@@ -27,4 +29,6 @@ class EquipoController extends Controller
     {
         return Equipo::get();
     }
+
+
 }

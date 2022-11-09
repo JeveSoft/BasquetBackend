@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     use HasFactory;
+    protected $table="Categoria";
 
     protected $fillable = [
-        "nombre",
-        "edadMinima",
-        "edadMaxima"
+        "NOMBRECATEGORIA",
+        "EDADMIN",
+        "EDADMAX"
     ];
 
-    public function equipos(){
-        return $this->hasMany(Equipo::class);
-    }
+    public $timestamps = false;
 }

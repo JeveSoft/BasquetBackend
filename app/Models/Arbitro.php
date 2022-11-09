@@ -20,5 +20,6 @@ class Arbitro extends Model
         "NACIONALIDAD",
         "GENERO"];
 
+
     public $timestamps = false;
 }

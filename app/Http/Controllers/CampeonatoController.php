@@ -10,6 +10,14 @@ class CampeonatoController extends Controller
     {
         return Campeonato::get();
     }
+    public function updatePagos(Request $request, $id)
+    {
+        $campeonato = Campeonato::findOrFail($id);
+        $campeonato->PAGOMITAD = $request->PAGOMITAD;
+        $campeonato->PAGOCOMPLETO = $request->PAGOCOMPLETO;
+        $campeonato->save();
+        return $campeonato;
+    }
 
     public function updateFechas(Request $request, $id)
     {

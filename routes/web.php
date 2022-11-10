@@ -39,6 +39,7 @@ Route::get('/obtenerEquipo/{id}', "App\Http\Controllers\EquipoController@obtener
 Route::get('/informacion', "App\Http\Controllers\InformacionController@informacion");
 
 Route::put('/acutalizarFechas/{id}', "App\Http\Controllers\CampeonatoController@updateFechas");
+Route::put('/acutalizarPagos/{id}', "App\Http\Controllers\CampeonatoController@updatePagos");
 Route::put('/habilitarSinJugador/{id}', "App\Http\Controllers\InscripcionController@habilitarSinJugador");
 
 Route::delete('/eliminarCategoria/{id}',"App\Http\Controllers\CategoriaController@eliminar");

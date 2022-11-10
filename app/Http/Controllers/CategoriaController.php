@@ -14,7 +14,15 @@ class CategoriaController extends Controller
     }
 
     public function eliminar($id){
-        return Categoria::destroy($id);
+        $categoria = Categoria::where("NOMBRECATEGORIA",$id);
+        $categoria->delete();
+        return "borro";
+    }
+
+    public function existe($id)
+    {
+        return Categoria::where("NOMBRECATEGORIA",$id) -> get();
+
     }
 
     public function store(Request $request)

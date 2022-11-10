@@ -31,6 +31,7 @@ class ArbitroController extends Controller
         $arbritro->FECHANACIMIENTO = $request->FECHANACIMIENTO;
         $arbritro->NACIONALIDAD =$request->NACIONALIDAD;
         $arbritro->GENERO = $request->GENERO;
+        $arbritro->CONTRASENA= $request->CI;
         $arbritro->save();
         return $arbritro;
     }

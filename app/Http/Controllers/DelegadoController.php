@@ -12,6 +12,11 @@ class DelegadoController extends Controller
         return Delegado::where("IDDELEGADO",$id)->get();
     }
 
+    public function obtenerNombreDelegado($id)
+    {
+        return Delegado::where("CI",$id)->get();
+    }
+
     public function store(Request $request)
     {
         $delegado = new Delegado;

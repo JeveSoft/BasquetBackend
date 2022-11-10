@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/todosCampeonatos', "App\Http\Controllers\CampeonatoController@mostrar");
 //Route::get('/delegados', "App\Http\Controllers\DelegadoController@show");
+
 Route::post('/añadirDelegado',"App\Http\Controllers\DelegadoController@store");
 Route::post('/añadirArbitro',"App\Http\Controllers\ArbitroController@store");
 Route::post('/añadirEquipo',"App\Http\Controllers\EquipoController@store");
 Route::post('/añadirInscripcion',"App\Http\Controllers\InscripcionController@store");
 Route::post('/añadirCampeonato',"App\Http\Controllers\CampeonatoController@store");
 Route::post('/añadirCategoria',"App\Http\Controllers\CategoriaController@store");
+Route::post('/añadirInformacion',"App\Http\Controllers\InformacionController@store");
 
 Route::get('/arbitrosid', "App\Http\Controllers\ArbitroController@showID");
 Route::get('/arbitros', "App\Http\Controllers\ArbitroController@show");
@@ -29,14 +31,19 @@ Route::get('/habilitado', "App\Http\Controllers\InscripcionController@obtenerHab
 Route::get('/medioPago', "App\Http\Controllers\InscripcionController@obtenerMedioPago");
 Route::get('/pagoCompleto', "App\Http\Controllers\InscripcionController@obtenerPagoCompleto");
 Route::get('/categorias', "App\Http\Controllers\CategoriaController@show");
+Route::get('/existeCategoria/{id}', "App\Http\Controllers\CategoriaController@existe");
 Route::get('/administrador/{id}', "App\Http\Controllers\AdministradorController@obtenerAdministrador");
 Route::get('/delegado/{id}', "App\Http\Controllers\DelegadoController@obtenerDelegado");
+Route::get('/delegadoNombre/{id}', "App\Http\Controllers\DelegadoController@obtenerNombreDelegado");
+Route::get('/obtenerEquipo/{id}', "App\Http\Controllers\EquipoController@obtenerEquipo");
+Route::get('/informacion', "App\Http\Controllers\InformacionController@informacion");
 
 Route::put('/acutalizarFechas/{id}', "App\Http\Controllers\CampeonatoController@updateFechas");
 Route::put('/habilitarSinJugador/{id}', "App\Http\Controllers\InscripcionController@habilitarSinJugador");
 
 Route::delete('/eliminarCategoria/{id}',"App\Http\Controllers\CategoriaController@eliminar");
 Route::delete('/eliminarArbitro/{id}',"App\Http\Controllers\ArbitroController@eliminar");
+Route::delete('/eliminarFoto/{id}',"App\Http\Controllers\InformacionController@eliminar");
 
 Route::get('/',function(){
     return "holamundo";

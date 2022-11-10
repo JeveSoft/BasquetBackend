@@ -18,7 +18,8 @@ class Arbitro extends Model
         "CELULAR",
         "FECHANACIMIENTO",
         "NACIONALIDAD",
-        "GENERO"];
+        "GENERO",
+        "CONTRASENA"];
 
 
     public $timestamps = false;

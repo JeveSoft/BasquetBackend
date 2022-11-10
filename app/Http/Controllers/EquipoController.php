@@ -30,5 +30,8 @@ class EquipoController extends Controller
         return Equipo::get();
     }
 
-
+    public function obtenerEquipo($id)
+    {
+        return Equipo::where("NOMBRE",$id)->get();
+    }
 }

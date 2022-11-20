@@ -13,15 +13,28 @@ class InscripcionController extends Controller
     public function store(Request $request)
     {
         $inscripcion = new Inscripcion;
-        $inscripcion ->IDINSCRIPCION=$request->IDINSCRIPCION;
         $inscripcion->IDEQUIPO = $request->IDEQUIPO;
         $inscripcion->COMPROBANTEPAGO = $request->COMPROBANTEPAGO;
         $inscripcion->PAGOMEDIO =$request->PAGOMEDIO;
         $inscripcion->COMPROBANTEMEDIO = $request->COMPROBANTEMEDIO;
         $inscripcion->HABILITADO =$request->HABILITADO;
-        $inscripcion->HABILITADOSIN =$request->HABILITADOSIN;
         $inscripcion->save();
         return $inscripcion;
+    }
+
+    public function obtenerCategoria($id)
+    {
+        $lista = Inscripcion::where("HABILITADO","HabilitadoCompleto")->where("PAGOMEDIO","Completo")->pluck('IDEQUIPO');
+        $listado = array();
+        $i=0;
+        while($i<count($lista)){
+            $equipo = Equipo::where("IDEQUIPO",$lista[$i])->where("CATEGORIA",$id)->first();
+            if ($equipo!= null){
+                array_push($listado,$equipo);
+            }
+            $i++;
+        }
+        return $listado;
     }
 
     public function habilitarSinJugador(Request $request,$id)
@@ -38,6 +51,7 @@ class InscripcionController extends Controller
         $listado = array();
         $i=0;
         while($i<count($lista)){
+            $idInscripcion =Inscripcion::where("IDEQUIPO",$lista[$i])->pluck('IDINSCRIPCION');
             $comprobante = Inscripcion::where("IDEQUIPO",$lista[$i])->pluck('COMPROBANTEPAGO');
             $comprobanteCompleto = Inscripcion::where("IDEQUIPO",$lista[$i])->pluck('COMPROBANTEMEDIO');
             $equipo = Equipo::where("IDEQUIPO",$lista[$i])->first();
@@ -70,6 +84,8 @@ class InscripcionController extends Controller
             $equipoDelegado -> CATEGORIA = $categoria;
             $equipoDelegado -> COMPROBANTE = $comprobante;
             $equipoDelegado -> COMPROBANTECOMPLETO = $comprobanteCompleto;
+            $equipoDelegado -> IDINSCRIPCION = $idInscripcion;
+
             array_push($listado,$equipoDelegado);
             $i++;
         }
@@ -207,21 +223,24 @@ class InscripcionController extends Controller
         }
         return $listado;
     }
-    public function comprobantePago(Request $request, $id){
+    public function comprobantePago(Request $request, $id)
+    {
         $inscripcion = Inscripcion::find($id);
         $inscripcion->COMPROBANTEPAGO = $this->cargarImagen($request->imagen,$id);
         $inscripcion->save();
         return \response()->json(["res"=> true, "message"=>"imagen cargada"]);
     }
 
-    public function comprobantePagoMedio(Request $request, $id){
+    public function comprobantePagoMedio(Request $request, $id)
+    {
         $inscripcion = Inscripcion::find($id);
         $inscripcion->PAGOCOMPLETO = $this->cargarImagen($request->imagen,$id);
         $producto->save();
         return \response()->json(["res"=> true, "message"=>"imagen cargada"]);
     }
 
-    private function cargarImagen($file, $id){
+    private function cargarImagen($file, $id)
+    {
         $nombreArchivo = time() . "_{$id}." . $file->getClientOriginalExtension();
         $file->move(\public_path("imagenes/comprobantePago"), $nombreArchivo);
         return $nombreArchivo;

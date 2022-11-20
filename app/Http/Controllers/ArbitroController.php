@@ -8,6 +8,11 @@ use App\Models\Arbitro;
 
 class ArbitroController extends Controller
 {
+    public function obtenerArbitro($id)
+    {
+        return Arbitro::where("IDARBITRO",$id)->get();
+    }
+
     public function show()
     {
         return Arbitro::all();

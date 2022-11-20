@@ -23,20 +23,36 @@ Route::post('/añadirCampeonato',"App\Http\Controllers\CampeonatoController@stor
 Route::post('/añadirCategoria',"App\Http\Controllers\CategoriaController@store");
 Route::post('/añadirInformacion',"App\Http\Controllers\InformacionController@store");
 
-Route::get('/arbitrosid', "App\Http\Controllers\ArbitroController@showID");
+Route::get('/arbitro/{id}', "App\Http\Controllers\ArbitroController@obtenerArbitro");
+
 Route::get('/arbitros', "App\Http\Controllers\ArbitroController@show");
+
 Route::get('/obtenerEquipo/{id}', "App\Http\Controllers\EquipoController@obtenerEquipo");
+
 Route::get('/habilitadoSin', "App\Http\Controllers\InscripcionController@obtenerHabilitadoSin");
+
 Route::get('/habilitado', "App\Http\Controllers\InscripcionController@obtenerHabilitado");
+
+Route::get('/porCategoria/{id}', "App\Http\Controllers\InscripcionController@obtenerCategoria");
+
 Route::get('/medioPago', "App\Http\Controllers\InscripcionController@obtenerMedioPago");
+
 Route::get('/pagoCompleto', "App\Http\Controllers\InscripcionController@obtenerPagoCompleto");
+
 Route::get('/categorias', "App\Http\Controllers\CategoriaController@show");
+
 Route::get('/existeCategoria/{id}', "App\Http\Controllers\CategoriaController@existe");
+
 Route::get('/administrador/{id}', "App\Http\Controllers\AdministradorController@obtenerAdministrador");
+
 Route::get('/delegado/{id}', "App\Http\Controllers\DelegadoController@obtenerDelegado");
+
 Route::get('/delegadoNombre/{id}', "App\Http\Controllers\DelegadoController@obtenerNombreDelegado");
+
 Route::get('/obtenerEquipo/{id}', "App\Http\Controllers\EquipoController@obtenerEquipo");
+
 Route::get('/informacion', "App\Http\Controllers\InformacionController@informacion");
+
 
 Route::put('/acutalizarFechas/{id}', "App\Http\Controllers\CampeonatoController@updateFechas");
 Route::put('/acutalizarPagos/{id}', "App\Http\Controllers\CampeonatoController@updatePagos");

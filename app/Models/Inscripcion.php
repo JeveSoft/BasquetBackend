@@ -16,8 +16,7 @@ class Inscripcion extends Model
             "COMPROBANTEPAGO",
             "PAGOMEDIO",
             "COMPROBANTEMEDIO",
-            "HABILITADO",
-            "HABILITADOSIN"
+            "HABILITADO"
     ] ;
     public $timestamps = false;
 }

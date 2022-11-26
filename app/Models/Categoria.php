@@ -9,8 +9,8 @@ class Categoria extends Model
 {
     use HasFactory;
     protected $table="Categoria";
-    protected $primaryKey="IDCATEGORIA";
     protected $fillable = [
+        "IDCATEGORIA",
         "NOMBRECATEGORIA",
         "EDADMIN",
         "EDADMAX"

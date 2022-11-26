@@ -28,6 +28,7 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $categoria = new Categoria;
+        $categoria -> IDCATEGORIA=$request->IDCATEGORIA;
         $categoria ->NOMBRECATEGORIA=$request->NOMBRECATEGORIA;
         $categoria ->EDADMIN=$request->EDADMIN;
         $categoria->EDADMAX = $request->EDADMAX;

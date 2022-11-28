@@ -13,6 +13,10 @@ class CategoriaController extends Controller
         return Categoria::all();
     }
 
+    public function obtenerNombreCategoria () {
+        return Categoria::pluck('IDCATEGORIA');
+    }
+
     public function eliminar($id){
         $categoria = Categoria::where("NOMBRECATEGORIA",$id);
         $categoria->delete();

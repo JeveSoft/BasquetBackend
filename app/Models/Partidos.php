@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Partidos extends Model
 {
     use HasFactory;
+    protected $table="Partido";
+    protected $fillable = [
+          "IDCATEGORIA" ,
+          "GRUPO",
+          "EQUIPO1",
+          "EQUIPO2",
+          "GANADOR",
+          "PERDEDOR",
+          "EMPATE",
+          "ANOTACIONESEQ1",
+          "ANOTACIONESEQ2",
+          "LUGAR",
+          "HORA",
+          "DIA"
+    ];
+    public $timestamps = false;
 }

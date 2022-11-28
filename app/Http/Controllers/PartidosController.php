@@ -7,79 +7,32 @@ use Illuminate\Http\Request;
 
 class PartidosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function obtenerPartidos()
     {
-        //
+        return Partidos::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function obtenerCategoria ($id)
     {
-        //
+        return Partidos::where("IDCATEGORIA",$id)->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Partidos  $partidos
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Partidos $partidos)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Partidos  $partidos
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Partidos $partidos)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Partidos  $partidos
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Partidos $partidos)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Partidos  $partidos
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Partidos $partidos)
-    {
-        //
+        $partidos = new Partidos;
+        $partidos ->IDCATEGORIA=$request->IDCATEGORIA;
+        $partidos ->GRUPO=$request->GRUPO;
+        $partidos->EQUIPO1 = $request->EQUIPO1;
+        $partidos->EQUIPO2 = $request->EQUIPO2;
+        $partidos->GANADOR =$request->GANADOR;
+        $partidos->PERDEDOR = $request->PERDEDOR;
+        $partidos->EMPATE =$request->EMPATE;
+        $partidos->ANOTACIONESEQ1 = $request->ANOTACIONESEQ1;
+        $partidos->ANOTACIONESEQ2 = $request->ANOTACIONESEQ2;
+        $partidos->LUGAR =$request->LUGAR;
+        $partidos->HORA = $request->HORA;
+        $partidos->DIA = $request->DIA;
+        $partidos->save();
+        return $partidos;
     }
 }

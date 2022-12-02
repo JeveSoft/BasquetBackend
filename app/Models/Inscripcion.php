@@ -19,4 +19,9 @@ class Inscripcion extends Model
             "HABILITADO"
     ] ;
     public $timestamps = false;
+
+    public function equipo()
+    {
+        return $this->belongsTo(Equipo::class,"IDEQUIPO");
+    }
 }

@@ -19,4 +19,9 @@ class Equipo extends Model
             "CATEGORIA"
     ];
     public $timestamps = false;
+
+    public function inscripcion()
+    {
+        return $this->hasOne(Inscripcion::class,"IDINSCRIPCION");
+    }
 }

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jugador;
+use App\Models\Equipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Imports\JugadorImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JugadorController extends Controller
 {
@@ -35,10 +38,10 @@ class JugadorController extends Controller
     public function setImgCi(Request $request, $id){
         //$path = $request->file('imagen')->store('');
         $file = $request->file("imagen");
-        $nombre = time().".".$file->extension();
+        $nombre = "ci".time().".".$file->extension();
         $file->storeAs("", $nombre,'public');
         
-        $jugador = Jugador::find($id);
+        $jugador = Jugador::where("CIJUGADOR",$id)->first();
         $jugador->FOTOCIJUGADOR = $nombre;
         $jugador->save();     
         //return $path;   
@@ -47,10 +50,10 @@ class JugadorController extends Controller
 
     public function setImgJugador(Request $request, $id){
         $file = $request->file("imagen");
-        $nombre = time().".".$file->extension();
+        $nombre = "pic".time().".".$file->extension();
         $file->storeAs("", $nombre,'public');
         
-        $jugador = Jugador::find($id);
+        $jugador = Jugador::where("CIJUGADOR",$id)->first();
         $jugador->FOTOJUGADOR = $nombre;
         $jugador->save();     
         return $nombre;
@@ -76,4 +79,25 @@ class JugadorController extends Controller
         return 1;
    }
 
+   public function addJugadoresExcel(Request $request, $id){
+
+    //$path = $request->file('documento')->getRealPath();
+    //$import = new JugadorImport($id);
+    //return \response()->json(["res"=> true, "datos"=> $import]);
+    //return $import;
+    $equipo = Equipo::where("IDEQUIPO",$id)->first(); 
+    if( ! empty($id)){
+        $datos = Excel::import(new JugadorImport($id, $equipo->CANTIDAD),request()->file('file'));
+    }
+
+    //$path = $request->file("documento")->getRealPath();
+    //$datos = Excel::import($path, function ($reader){})->get();
+    /*if(!empty($datos) && $datos->count()){
+        $datos = $datos->toArray();
+        for($i=0 ; $i< count($datos); $i++){
+            $datosImportar[] = $datos[$i];
+        }
+    }*/
+    return \response()->json(["res"=> true, "datos"=> $datos]);
+    }
 }

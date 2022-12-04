@@ -62,7 +62,7 @@ Route::get('/import-users',[UserController::class,'importUsers'])->name('import'
 Route::post('/upload-users', "App\Http\Controllers\UserController@uploadUsers")->name('upload');
 /* Delegado Jugador */
 Route::post('/comprobantePagoMedio/{id}',"App\Http\Controllers\InscripcionController@comprobantePagoMedio");
-Route::post('/addJugadoresExcel/{id}',"App\Http\Controllers\DelegadoController@addJugadoresExcel");
+Route::post('/addJugadoresExcel/{idEquipo}',"App\Http\Controllers\JugadorController@addJugadoresExcel");
 Route::get('/equipos/{categoria}', "App\Http\Controllers\EquipoController@show");
 Route::get('/estadoInscripcion/{idDelegado}', "App\Http\Controllers\DelegadoController@estadoInscripcion");
 Route::put('/actualizarDelegado/{id}', "App\Http\Controllers\DelegadoController@update");

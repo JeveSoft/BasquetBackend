@@ -69,19 +69,5 @@ class DelegadoController extends Controller
         return $equipo;
     }
 
-    public function addJugadoresExcel(Request $request, $id){
-
-        //$path = $request->file('documento')->getRealPath();
-        $datos = Excel::import(new CsvImport,request()->file('documento'));
-
-        //$path = $request->file("documento")->getRealPath();
-        //$datos = Excel::import($path, function ($reader){})->get();
-        /*if(!empty($datos) && $datos->count()){
-            $datos = $datos->toArray();
-            for($i=0 ; $i< count($datos); $i++){
-                $datosImportar[] = $datos[$i];
-            }
-        }*/
-        return $datos;
-    }
+   
 }

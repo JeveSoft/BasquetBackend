@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use Illuminate\Http\Request;
+use App\Models\Delegado;
 
 class EquipoController extends Controller
 {
 
+    public function obtenerEntrenador($id)
+    {
+        $delegago = Equipo::where("NOMBRE", $id)->pluck('IDDELEGADO');
+        return Delegado::where("IDDELEGADO",$delegago)->pluck('NOMBRE');
+    }
 
     public function store(Request $request)
     {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Partidos extends Model
 {
     use HasFactory;
+    protected $primaryKey = "IDPARTIDO";
     protected $table="Partido";
     protected $fillable = [
           "IDCATEGORIA" ,

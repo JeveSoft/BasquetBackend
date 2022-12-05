@@ -25,6 +25,11 @@ Route::post('/añadirPartido',"App\Http\Controllers\PartidosController@store");
 
 Route::get('/nombreCategorias', "App\Http\Controllers\CategoriaController@obtenerNombreCategoria");
 
+Route::get('/octavos/{id}', "App\Http\Controllers\PartidosController@octavos");
+
+Route::get('/obtenerPartidoEspecifico/{id}', "App\Http\Controllers\PartidosController@obtenerPartido");
+
+
 Route::get('/obtenercategoriafixture/{id}', "App\Http\Controllers\PartidosController@obtenerCategoria");
 Route::get('/partidos', "App\Http\Controllers\PartidosController@obtenerPartidos");
 Route::get('/arbitro/{id}', "App\Http\Controllers\ArbitroController@obtenerArbitro");
@@ -43,6 +48,11 @@ Route::get('/delegadoNombre/{id}', "App\Http\Controllers\DelegadoController@obte
 Route::get('/obtenerEquipo/{id}', "App\Http\Controllers\EquipoController@obtenerEquipo");
 Route::get('/informacion', "App\Http\Controllers\InformacionController@informacion");
 
+Route::get('/obtenerEntrenador/{id}', "App\Http\Controllers\EquipoController@obtenerEntrenador");
+
+
+
+Route::put('/actualizarPartido/{id}', "App\Http\Controllers\PartidosController@actualizarDatos");
 
 Route::put('/acutalizarFechas/{id}', "App\Http\Controllers\CampeonatoController@updateFechas");
 Route::put('/acutalizarPagos/{id}', "App\Http\Controllers\CampeonatoController@updatePagos");

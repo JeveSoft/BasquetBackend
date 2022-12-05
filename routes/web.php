@@ -67,3 +67,18 @@ Route::get('/',function(){
 });
 
 
+Route::get('/import-users',[UserController::class,'importUsers'])->name('import');
+//Route::post('/upload-users',[UserController::class,'uploadUsers'])->name('upload');
+Route::post('/upload-users', "App\Http\Controllers\UserController@uploadUsers")->name('upload');
+/* Delegado Jugador */
+Route::post('/comprobantePagoMedio/{id}',"App\Http\Controllers\InscripcionController@comprobantePagoMedio");
+Route::post('/addJugadoresExcel/{idEquipo}',"App\Http\Controllers\JugadorController@addJugadoresExcel");
+Route::get('/equipos/{categoria}', "App\Http\Controllers\EquipoController@show");
+Route::get('/estadoInscripcion/{idDelegado}', "App\Http\Controllers\DelegadoController@estadoInscripcion");
+Route::put('/actualizarDelegado/{id}', "App\Http\Controllers\DelegadoController@update");
+Route::post('/agregarJugador', "App\Http\Controllers\JugadorController@store");
+Route::get('/obtenerJugadores', "App\Http\Controllers\JugadorController@show");
+Route::post('/setImgCi/{id}', "App\Http\Controllers\JugadorController@setImgCi");
+Route::post('/setImgJugador/{id}', "App\Http\Controllers\JugadorController@setImgJugador");
+Route::put('/actualizarJugador/{ci}', "App\Http\Controllers\JugadorController@actualizarJugador");
+Route::delete('/eliminarJugador/{ci}', "App\Http\Controllers\JugadorController@eliminarJugador");

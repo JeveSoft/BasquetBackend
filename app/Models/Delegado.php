@@ -9,6 +9,7 @@ class Delegado extends Model
 {
     use HasFactory;
     protected $table="Delegado";
+    protected $primaryKey="IDDELEGADO";
     protected $fillable = [
     "IDDELEGADO",
     "NOMBRE",

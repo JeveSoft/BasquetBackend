@@ -9,6 +9,20 @@ use App\Models\Delegado;
 class EquipoController extends Controller
 {
 
+    public function subirPuntos(Request $request,$id)
+    {
+        $codEquipo = Equipo::where("NOMBRE",$id)->pluck('IDEQUIPO')->first();
+        $equipo = Equipo::findOrFail($codEquipo);
+        $equipo->PUNTOS=$request->PUNTOS;
+        $equipo->save();
+        return $equipo;
+    }
+
+    public function obtenerPuntos($id)
+    {
+        return Equipo::where("NOMBRE", $id)->pluck('PUNTOS')->first();
+    }
+
     public function obtenerEntrenador($id)
     {
         $delegago = Equipo::where("NOMBRE", $id)->pluck('IDDELEGADO');

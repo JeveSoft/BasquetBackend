@@ -4,52 +4,58 @@ namespace App\Http\Controllers;
 
 use App\Models\Partidos;
 use App\Models\Ganador;
+use App\Models\Equipo;
 use Illuminate\Http\Request;
 
 class PartidosController extends Controller
 {
-    public function octavos($id)
-    {
-        $ganadores = Partidos::whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->where("GRUPO","Grupo A ".$id)->pluck('GANADOR');
-        $listadoA = array();
-        $listadoB = array();
-        $listado = array();
-        $i=0;
-        while($i<count($ganadores)){
-            $ganador = new Ganador();
-            $equipo1 = Partidos::where("EQUIPO1",$ganadores[$i])->whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->count();
-            if ($equipo1 > 0){
-                $puntacion=Partidos::where("EQUIPO1",$ganadores[$i])->whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->pluck('ANOTACIONESEQ1');
-                $ganador->ANOTACIONES=$puntacion;
-            }else{
-                $puntacion=Partidos::where("EQUIPO2",$ganadores[$i])->whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->pluck('ANOTACIONESEQ2');
-                $ganador->ANOTACIONES=$puntacion;
-            }
-            $ganador->GANADOR=$ganadores[$i];
-            array_push($listadoA,$ganador);
-            $i++;
-        }
+    public function haySemifinal ($id){
+        return Partidos::where("FASE","semiFinal")->where("IDCATEGORIA",$id)->get();
+    }
 
-        $ganadores = Partidos::whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->where("GRUPO","Grupo B ".$id)->pluck('GANADOR');
-        $listado = array();
+    public function hayFinal ($id){
+        return Partidos::where("FASE","Final")->where("IDCATEGORIA",$id)->get();
+    }
+
+    public function obtenerFinal ($id){
+        $ganador =  Partidos::where("FASE","semiFinal")->where("IDCATEGORIA",$id)->whereNotNull("GANADOR")->pluck('GANADOR');
+        $perdedor =  Partidos::where("FASE","semiFinal")->where("IDCATEGORIA",$id)->whereNotNull("GANADOR")->pluck('PERDEDOR');
+
+        $lista = array($ganador[0],$ganador[1],$perdedor[0],$perdedor[1]);
+        return $lista;
+    }
+
+    public function semiFinalB($id)
+    {
+        $ganadoresB = Partidos::whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->where("GRUPO","Grupo B".$id)->pluck('GANADOR');
+        $listaB = array();
         $i=0;
-        while($i<count($ganadores)){
-            $ganador = new Ganador();
-            $equipo1 = Partidos::where("EQUIPO1",$ganadores[$i])->whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->count();
-            if ($equipo1 > 0){
-                $puntacion=Partidos::where("EQUIPO1",$ganadores[$i])->whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->pluck('ANOTACIONESEQ1');
-                $ganador->ANOTACIONES=$puntacion;
-            }else{
-                $puntacion=Partidos::where("EQUIPO2",$ganadores[$i])->whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->pluck('ANOTACIONESEQ2');
-                $ganador->ANOTACIONES=$puntacion;
-            }
-            $ganador->GANADOR=$ganadores[$i];
-            array_push($listadoB,$ganador);
+        while($i<count($ganadoresB)){
+            $equipo = Equipo::where("NOMBRE",$ganadoresB[$i])->pluck('PUNTOS')->first();
+            $ganador = new Ganador;
+            $ganador -> NOMBRE = $ganadoresB[$i];
+            $ganador -> PUNTOS = $equipo;
+            array_push($listaB,$ganador);
             $i++;
         }
-        array_push($listado,$listadoA);
-        array_push($listado,$listadoB);
-        return $listado;
+        return $listaB;
+    }
+
+    public function semiFinalA($id)
+    {
+        $ganadoresA = Partidos::whereNotNull("GANADOR")-> where("IDCATEGORIA",$id)->where("GRUPO","Grupo A ".$id)->pluck('GANADOR');
+        $listaA = array();
+        $i=0;
+        while($i<count($ganadoresA)){
+            $equipo = Equipo::where("NOMBRE",$ganadoresA[$i])->pluck('PUNTOS')->first();
+            $ganador = new Ganador;
+            $ganador -> NOMBRE = $ganadoresA[$i];
+            $ganador -> PUNTOS = $equipo;
+            array_push($listaA,$ganador);
+
+            $i++;
+        }
+        return $listaA;
     }
 
     public function obtenerPartido ($id)
@@ -127,6 +133,7 @@ class PartidosController extends Controller
         $partidos->LUGAR =$request->LUGAR;
         $partidos->HORA = $request->HORA;
         $partidos->DIA = $request->DIA;
+        $partidos->FASE = $request->FASE;
         $partidos->save();
         return $partidos;
     }

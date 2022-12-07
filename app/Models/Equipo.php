@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Equipo extends Model
 {
     use HasFactory;
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $table = "Equipo";
+    protected $primaryKey = "IDEQUIPO";
     protected $fillable = [
             "NOMBRE",
             "SIGLAS",
@@ -16,7 +20,9 @@ class Equipo extends Model
             "CANTIDAD",
             "FECHACREACION",
             "IDDELEGADO",
-            "CATEGORIA"
+            "CATEGORIA",
+            "PUNTOS",
+            "PUESTO",
     ];
     public $timestamps = false;
 

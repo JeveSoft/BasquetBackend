@@ -25,7 +25,11 @@ Route::post('/añadirPartido',"App\Http\Controllers\PartidosController@store");
 
 Route::get('/nombreCategorias', "App\Http\Controllers\CategoriaController@obtenerNombreCategoria");
 
-Route::get('/octavos/{id}', "App\Http\Controllers\PartidosController@octavos");
+Route::get('/haySemifinal/{id}', "App\Http\Controllers\PartidosController@haySemifinal");
+
+
+Route::get('/semiFinalA/{id}', "App\Http\Controllers\PartidosController@semiFinalA");
+Route::get('/semiFinalB/{id}', "App\Http\Controllers\PartidosController@semiFinalB");
 
 Route::get('/obtenerPartidoEspecifico/{id}', "App\Http\Controllers\PartidosController@obtenerPartido");
 
@@ -48,9 +52,16 @@ Route::get('/delegadoNombre/{id}', "App\Http\Controllers\DelegadoController@obte
 Route::get('/obtenerEquipo/{id}', "App\Http\Controllers\EquipoController@obtenerEquipo");
 Route::get('/informacion', "App\Http\Controllers\InformacionController@informacion");
 
+Route::get('/obtenerFinal/{id}', "App\Http\Controllers\PartidosController@obtenerFinal");
+
+Route::get('/hayFinal/{id}', "App\Http\Controllers\PartidosController@hayFinal");
+
+Route::get('/obtenerPuntos/{id}', "App\Http\Controllers\EquipoController@obtenerPuntos");
+
 Route::get('/obtenerEntrenador/{id}', "App\Http\Controllers\EquipoController@obtenerEntrenador");
 
 
+Route::put('/subirPuntos/{id}', "App\Http\Controllers\EquipoController@subirPuntos");
 
 Route::put('/actualizarPartido/{id}', "App\Http\Controllers\PartidosController@actualizarDatos");
 

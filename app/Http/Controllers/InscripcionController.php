@@ -68,6 +68,7 @@ class InscripcionController extends Controller
             $celular = $delegado->CELULAR;
             $fecha = $delegado->FECHANACIMIENTO;
             $nacionalidad = $delegado->NACIONALIDAD;
+            $logo = $equipo->LOGO;
             $genero = $delegado->GENERO;
             $equipoDelegado = new EquipoDelegado();
             $equipoDelegado -> NOMBREDELEGADO = $nombreDelegado;
@@ -79,6 +80,7 @@ class InscripcionController extends Controller
             $equipoDelegado -> NACIONALIDAD = $nacionalidad;
             $equipoDelegado -> GENERO = $genero;
             $equipoDelegado -> SIGLAS = $sigla;
+            $equipoDelegado -> LOGO = $logo;
             $equipoDelegado -> CANTIDAD = $cantidad;
             $equipoDelegado -> FECHACREACION = $creacion;
             $equipoDelegado -> CATEGORIA = $categoria;
@@ -115,6 +117,7 @@ class InscripcionController extends Controller
             $fecha = $delegado->FECHANACIMIENTO;
             $nacionalidad = $delegado->NACIONALIDAD;
             $genero = $delegado->GENERO;
+            $logo = $equipo->LOGO;
             $equipoDelegado = new EquipoDelegado();
             $equipoDelegado -> NOMBREDELEGADO = $nombreDelegado;
             $equipoDelegado -> NOMBREEQUIPO = $nombreEquipo;
@@ -125,6 +128,7 @@ class InscripcionController extends Controller
             $equipoDelegado -> NACIONALIDAD = $nacionalidad;
             $equipoDelegado -> GENERO = $genero;
             $equipoDelegado -> SIGLAS = $sigla;
+            $equipoDelegado -> LOGO = $logo;
             $equipoDelegado -> CANTIDAD = $cantidad;
             $equipoDelegado -> FECHACREACION = $creacion;
             $equipoDelegado -> CATEGORIA = $categoria;
@@ -160,10 +164,12 @@ class InscripcionController extends Controller
             $fecha = $delegado->FECHANACIMIENTO;
             $nacionalidad = $delegado->NACIONALIDAD;
             $genero = $delegado->GENERO;
+            $logo = $equipo->LOGO;
             $equipoDelegado = new EquipoDelegado();
             $equipoDelegado -> NOMBREDELEGADO = $nombreDelegado;
             $equipoDelegado -> NOMBREEQUIPO = $nombreEquipo;
             $equipoDelegado -> CI = $ci;
+            $equipoDelegado -> LOGO = $logo;
             $equipoDelegado -> EMAIL = $email;
             $equipoDelegado -> CELULAR = $celular;
             $equipoDelegado -> FECHANACIMIENTO = $fecha;
@@ -177,6 +183,19 @@ class InscripcionController extends Controller
             $equipoDelegado -> COMPROBANTECOMPLETO = $comprobanteCompleto;
             $equipoDelegado -> IDINSCRIPCION = $idInscripcion;
             array_push($listado,$equipoDelegado);
+            $i++;
+        }
+        return $listado;
+    }
+
+    public function obtenerEquipos ($id)
+    {
+        $lista = Inscripcion::where("HABILITADO","HabilitadoCompleto")->pluck('IDEQUIPO');
+        $listado = array();
+        $i=0;
+        while($i<count($lista)){
+            $equipo = Equipo::where("IDEQUIPO",$lista[$i])->where('CATEGORIA',$id)->first();
+            array_push($listado,$equipo);
             $i++;
         }
         return $listado;
@@ -204,11 +223,13 @@ class InscripcionController extends Controller
             $fecha = $delegado->FECHANACIMIENTO;
             $nacionalidad = $delegado->NACIONALIDAD;
             $genero = $delegado->GENERO;
+            $logo = $equipo -> LOGO;
             $equipoDelegado = new EquipoDelegado();
             $equipoDelegado -> NOMBREDELEGADO = $nombreDelegado;
             $equipoDelegado -> NOMBREEQUIPO = $nombreEquipo;
             $equipoDelegado -> CI = $ci;
             $equipoDelegado -> EMAIL = $email;
+            $equipoDelegado -> LOGO = $logo;
             $equipoDelegado -> CELULAR = $celular;
             $equipoDelegado -> FECHANACIMIENTO = $fecha;
             $equipoDelegado -> NACIONALIDAD = $nacionalidad;

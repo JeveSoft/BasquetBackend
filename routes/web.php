@@ -42,6 +42,9 @@ Route::get('/obtenerEquipo/{id}', "App\Http\Controllers\EquipoController@obtener
 Route::get('/habilitadoSin', "App\Http\Controllers\InscripcionController@obtenerHabilitadoSin");
 Route::get('/habilitado', "App\Http\Controllers\InscripcionController@obtenerHabilitado");
 Route::get('/porCategoria/{id}', "App\Http\Controllers\InscripcionController@obtenerCategoria");
+
+Route::get('/equiposPuntos/{id}', "App\Http\Controllers\InscripcionController@obtenerEquipos");
+
 Route::get('/medioPago', "App\Http\Controllers\InscripcionController@obtenerMedioPago");
 Route::get('/pagoCompleto', "App\Http\Controllers\InscripcionController@obtenerPagoCompleto");
 Route::get('/categorias', "App\Http\Controllers\CategoriaController@show");

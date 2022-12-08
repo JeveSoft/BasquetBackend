@@ -87,7 +87,7 @@ Route::post('/upload-users', "App\Http\Controllers\UserController@uploadUsers")-
 /* Delegado Jugador */
 Route::post('/comprobantePagoMedio/{id}',"App\Http\Controllers\InscripcionController@comprobantePagoMedio");
 Route::post('/addJugadoresExcel/{idEquipo}',"App\Http\Controllers\JugadorController@addJugadoresExcel");
-Route::get('/equipos/{categoria}', "App\Http\Controllers\EquipoController@show");
+Route::get('/equipos/{categoria}', "App\Http\Controllers\EquipoController@obtenerEquipos");
 Route::get('/estadoInscripcion/{idDelegado}', "App\Http\Controllers\DelegadoController@estadoInscripcion");
 Route::put('/actualizarDelegado/{id}', "App\Http\Controllers\DelegadoController@update");
 Route::post('/agregarJugador', "App\Http\Controllers\JugadorController@store");

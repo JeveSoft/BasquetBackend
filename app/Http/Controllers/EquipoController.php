@@ -66,4 +66,9 @@ class EquipoController extends Controller
 
 
     }
+    public function obtenerEquipos (Request $request, $cat){
+        $equipos = Equipo::where("CATEGORIA",$cat)->get();
+        return $equipos;
+    }
+
 }

@@ -104,3 +104,4 @@ Route::post('/comprobantePago/{idEq}', "App\Http\Controllers\InscripcionControll
 Route::post('/agregarLogo/{idEq}', "App\Http\Controllers\EquipoController@agregarLogo");
 Route::delete('/eliminarJugadores/{idEq}', "App\Http\Controllers\JugadorController@eliminarJugadores");
 Route::post('/agregarFotoInfo', "App\Http\Controllers\InformacionController@agregarFotoInfo");
+Route::get('/obtenerJugadoresQr/{idE}', "App\Http\Controllers\JugadorController@obtenerJugadoresQr");

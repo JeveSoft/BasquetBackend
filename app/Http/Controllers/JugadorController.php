@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Imports\JugadorImport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class JugadorController extends Controller
 {
     public function store(Request $request)
@@ -24,16 +24,22 @@ class JugadorController extends Controller
         $jugador->EMAIL=$request->EMAIL;
         $jugador->FOTOCIJUGADOR=$request->FOTOCIJUGADOR;
         $jugador->ROL=$request->ROL;
-        $jugador->FOTOQR=$request->FOTOQR;
         $jugador->FOTOJUGADOR=$request->FOTOJUGADOR;
         $jugador->FECHANACIMIENTO=$request->FECHANACIMIENTO;
-        $jugador->save();
         $jugadores = Jugador::where("IDEQUIPO",$request->IDEQUIPO)->get();
         $equipo = Equipo::where("IDEQUIPO",$request->IDEQUIPO)->first();
         $cantAct = sizeof($jugadores);
         $cantMax = $equipo->CANTIDAD;
-        if($cantAct == $cantAct){
-            $inscripcion = Inscripcion::where("IDEQUIPO",$id)->first();              $inscripcion->HABILITADO = "habilitado";
+        
+        $nombreQr = $request->IDJUGADOR.time().".svg";
+        $inforJugador = $request->NOMBREJUGADOR." ".$request->CIJUGADOR." ".$equipo->NOMBRE;
+        QrCode::generate($inforJugador,'../public/qrJugadores/'.$nombreQr);
+        $jugador->FOTOQR= $nombreQr;
+        $jugador->save();
+        
+        if($cantAct == $cantMax){
+            $inscripcion = Inscripcion::where("IDEQUIPO",$id)->first();              
+            $inscripcion->HABILITADO = "habilitado";
             $inscripcion->save();
         }
         return $jugador;
@@ -115,5 +121,17 @@ class JugadorController extends Controller
     public function obtenerJugadores($id){
         $jugadores = Jugador::where("IDEQUIPO",$id)->get();
         return $jugadores;
+    }
+
+    public function obtenerJugadoresQr($idEquipo){
+        /* $jugadores = Jugador::where("IDEQUIPO",$idEquipo)->get();
+        for($i = 0; $i < sizeof($jugadores); $i++){
+
+        } */
+        $nombre = "qr".time().".svg";
+        $jugador = "Elmer Mendoza";
+        $equipo = "Lakers";
+        $inforJugador = $jugador." ".$equipo." "."Habilitado";
+         QrCode::generate($inforJugador,'../public/qrJugadores/'.$nombre);
     }
 }

@@ -27,4 +27,14 @@ class InformacionController extends Controller
         $informacion->delete();
         return "borro";
     }
+    public function agregarFotoInfo(Request $request){
+        $file = $request->file("imagen");
+        $nombre = "info".time().".".$file->extension();
+        $file->storeAs("",$nombre,"public");
+        $informacion = new informacion();
+        $informacion->TITULO = $request->titulo;
+        $informacion->NOMBREFOTO = $nombre;
+        $informacion->save();
+        return $informacion;
+    }
 }

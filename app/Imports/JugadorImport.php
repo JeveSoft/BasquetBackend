@@ -30,7 +30,7 @@ class JugadorImport implements ToCollection
         {
             if($id > 0 && $id <= $this->cantidad){
                 Jugador::create([
-                    'IDJUGADOR' => $id,
+                    'IDJUGADOR' => $id.$this->idEquipo,
                     'IDEQUIPO' => $this->idEquipo,
                     'NOMBREJUGADOR' => $row[0],
                     'CIJUGADOR' => $row[1],

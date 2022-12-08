@@ -54,4 +54,16 @@ class EquipoController extends Controller
     {
         return Equipo::where("NOMBRE",$id)->get();
     }
+
+    public function agregarLogo(Request $request, $id){
+        $file = $request->file("imagen");
+        $nombre = "logo".time().".".$file->extension();
+        $file->storeAs("", $nombre,'public');
+
+        $equipo = Equipo::where("IDEQUIPO",$id)->first();
+        $equipo->LOGO = $nombre;
+        $equipo->save();
+
+
+    }
 }

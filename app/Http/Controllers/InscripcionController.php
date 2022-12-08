@@ -246,25 +246,29 @@ class InscripcionController extends Controller
     }
     public function comprobantePago(Request $request, $id)
     {
-        $inscripcion = Inscripcion::find($id);
-        $inscripcion->COMPROBANTEPAGO = $this->cargarImagen($request->imagen,$id);
-        $inscripcion->save();
+        $file = $request->file("imagen");
+        $nombre = "cp".time().".".$file->extension();
+        $file->storeAs("", $nombre,'public');
+        
+        $inscripcion = Inscripcion::where("IDEQUIPO",$id)->first();
+        $inscripcion->COMPROBANTEPAGO = $nombre;
+        /* $inscripcion->PAGOMEDIO = "COMPLETO"; */
+        $inscripcion->save();       
         return \response()->json(["res"=> true, "message"=>"imagen cargada"]);
     }
 
     public function comprobantePagoMedio(Request $request, $id)
     {
-        $inscripcion = Inscripcion::find($id);
-        $inscripcion->PAGOCOMPLETO = $this->cargarImagen($request->imagen,$id);
-        $producto->save();
+        $file = $request->file("imagen");
+        $nombre = "CPM".time().".".$file->extension();
+        $file->storeAs("", $nombre,'public');
+        
+        $inscripcion = Inscripcion::where("IDINSCRIPCION",$id)->first();
+        $inscripcion->COMPROBANTEMEDIO = $nombre;
+        $inscripcion->PAGOMEDIO = "Completo";
+        $inscripcion->save();       
         return \response()->json(["res"=> true, "message"=>"imagen cargada"]);
-    }
 
-    private function cargarImagen($file, $id)
-    {
-        $nombreArchivo = time() . "_{$id}." . $file->getClientOriginalExtension();
-        $file->move(\public_path("imagenes/comprobantePago"), $nombreArchivo);
-        return $nombreArchivo;
     }
 }
 

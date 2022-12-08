@@ -96,3 +96,11 @@ Route::post('/setImgCi/{id}', "App\Http\Controllers\JugadorController@setImgCi")
 Route::post('/setImgJugador/{id}', "App\Http\Controllers\JugadorController@setImgJugador");
 Route::put('/actualizarJugador/{ci}', "App\Http\Controllers\JugadorController@actualizarJugador");
 Route::delete('/eliminarJugador/{ci}', "App\Http\Controllers\JugadorController@eliminarJugador");
+
+Route::get('/obtenerJugadores/{idEquipo}', "App\Http\Controllers\JugadorController@obtenerJugadores");
+Route::post('/pagoMedio/{idCam}', "App\Http\Controllers\CampeonatoController@pagoMedio");
+Route::post('/pagoCompleto/{idCam}', "App\Http\Controllers\CampeonatoController@pagoCompleto");
+Route::post('/comprobantePago/{idEq}', "App\Http\Controllers\InscripcionController@comprobantePago");
+Route::post('/agregarLogo/{idEq}', "App\Http\Controllers\EquipoController@agregarLogo");
+Route::delete('/eliminarJugadores/{idEq}', "App\Http\Controllers\JugadorController@eliminarJugadores");
+Route::post('/agregarFotoInfo', "App\Http\Controllers\InformacionController@agregarFotoInfo");

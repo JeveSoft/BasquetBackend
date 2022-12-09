@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/todosCampeonatos', "App\Http\Controllers\CampeonatoController@mostrar");
 
-Route::post('/añadirDelegado',"App\Http\Controllers\DelegadoController@store");
+Route::post('/anadirDelegado',"App\Http\Controllers\DelegadoController@store");
 Route::post('/añadirArbitro',"App\Http\Controllers\ArbitroController@store");
-Route::post('/añadirEquipo',"App\Http\Controllers\EquipoController@store");
-Route::post('/añadirInscripcion',"App\Http\Controllers\InscripcionController@store");
+Route::post('/anadirEquipo',"App\Http\Controllers\EquipoController@store");
+Route::post('/anadirInscripcion',"App\Http\Controllers\InscripcionController@store");
 Route::post('/añadirCampeonato',"App\Http\Controllers\CampeonatoController@store");
 Route::post('/añadirCategoria',"App\Http\Controllers\CategoriaController@store");
 Route::post('/añadirInformacion',"App\Http\Controllers\InformacionController@store");

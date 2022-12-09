@@ -14,6 +14,7 @@ class Equipo extends Model
     protected $table = "Equipo";
     protected $primaryKey = "IDEQUIPO";
     protected $fillable = [
+            "IDEQUIPO",
             "NOMBRE",
             "SIGLAS",
             "LOGO",

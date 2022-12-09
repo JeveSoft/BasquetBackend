@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jugador;
+use App\Models\Inscripcion;
 use App\Models\Equipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Imports\JugadorImport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class JugadorController extends Controller
 {
     public function store(Request $request)
@@ -22,10 +24,24 @@ class JugadorController extends Controller
         $jugador->EMAIL=$request->EMAIL;
         $jugador->FOTOCIJUGADOR=$request->FOTOCIJUGADOR;
         $jugador->ROL=$request->ROL;
-        $jugador->FOTOQR=$request->FOTOQR;
         $jugador->FOTOJUGADOR=$request->FOTOJUGADOR;
         $jugador->FECHANACIMIENTO=$request->FECHANACIMIENTO;
+        $jugadores = Jugador::where("IDEQUIPO",$request->IDEQUIPO)->get();
+        $equipo = Equipo::where("IDEQUIPO",$request->IDEQUIPO)->first();
+        $cantAct = sizeof($jugadores);
+        $cantMax = $equipo->CANTIDAD;
+        
+        $nombreQr = $request->IDJUGADOR.time().".svg";
+        $inforJugador = $request->NOMBREJUGADOR." ".$request->CIJUGADOR." ".$equipo->NOMBRE;
+        QrCode::generate($inforJugador,'../public/qrJugadores/'.$nombreQr);
+        $jugador->FOTOQR= $nombreQr;
         $jugador->save();
+        
+        if($cantAct == $cantMax){
+            $inscripcion = Inscripcion::where("IDEQUIPO",$id)->first();              
+            $inscripcion->HABILITADO = "habilitado";
+            $inscripcion->save();
+        }
         return $jugador;
     }
 
@@ -80,24 +96,42 @@ class JugadorController extends Controller
    }
 
    public function addJugadoresExcel(Request $request, $id){
-
-    //$path = $request->file('documento')->getRealPath();
-    //$import = new JugadorImport($id);
-    //return \response()->json(["res"=> true, "datos"=> $import]);
-    //return $import;
+    $this->eliminarJugadores($id);
     $equipo = Equipo::where("IDEQUIPO",$id)->first(); 
     if( ! empty($id)){
         $datos = Excel::import(new JugadorImport($id, $equipo->CANTIDAD),request()->file('file'));
     }
-
-    //$path = $request->file("documento")->getRealPath();
-    //$datos = Excel::import($path, function ($reader){})->get();
-    /*if(!empty($datos) && $datos->count()){
-        $datos = $datos->toArray();
-        for($i=0 ; $i< count($datos); $i++){
-            $datosImportar[] = $datos[$i];
-        }
-    }*/
+    $inscripcion = Inscripcion::where("IDEQUIPO",$id)->first();
+    $inscripcion->HABILITADO = "habilitado";
+    $inscripcion->save();
     return \response()->json(["res"=> true, "datos"=> $datos]);
+    }
+
+    public function eliminarJugadores($idEquipo){
+        $jugadores = Jugador::where("IDEQUIPO",$idEquipo)->get();
+        $res = sizeof($jugadores);
+        if($res !== 0){
+            for($i = 0; $i < $res ; $i++){
+                $jugadores[$i]->delete();
+            }
+            return $jugadores;
+        }
+    }
+
+    public function obtenerJugadores($id){
+        $jugadores = Jugador::where("IDEQUIPO",$id)->get();
+        return $jugadores;
+    }
+
+    public function obtenerJugadoresQr($idEquipo){
+        /* $jugadores = Jugador::where("IDEQUIPO",$idEquipo)->get();
+        for($i = 0; $i < sizeof($jugadores); $i++){
+
+        } */
+        $nombre = "qr".time().".svg";
+        $jugador = "Elmer Mendoza";
+        $equipo = "Lakers";
+        $inforJugador = $jugador." ".$equipo." "."Habilitado";
+         QrCode::generate($inforJugador,'../public/qrJugadores/'.$nombre);
     }
 }

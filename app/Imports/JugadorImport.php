@@ -3,10 +3,11 @@
 namespace App\Imports;
 
 use App\Models\Jugador;
+use App\Models\Equipo;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class JugadorImport implements ToCollection
 {
@@ -30,7 +31,7 @@ class JugadorImport implements ToCollection
         {
             if($id > 0 && $id <= $this->cantidad){
                 Jugador::create([
-                    'IDJUGADOR' => $id,
+                    'IDJUGADOR' => $id.$this->idEquipo,
                     'IDEQUIPO' => $this->idEquipo,
                     'NOMBREJUGADOR' => $row[0],
                     'CIJUGADOR' => $row[1],
@@ -38,7 +39,7 @@ class JugadorImport implements ToCollection
                     'EMAIL' => $row[3],
                     'FOTOCIJUGADOR' =>"vacio",
                     'ROL' => $row[4],
-                    'FOTOQR' => "fotoqr",
+                    'FOTOQR' => $this->generarQr($row[0],$row[1],$id),
                     'FOTOJUGADOR' => "vacio",
                     'FECHANACIMIENTO' => preg_replace('/["\']+/','',$row[5]),
                 ]);
@@ -49,11 +50,11 @@ class JugadorImport implements ToCollection
         return $this->idEquipo;
     }
 
-   /*  private function ponerFecha($fecha){
-        $fechaNac;
-        for( $i = 0; $i < Str::length($fecha) ; $i++){
-            $fechaNac = $fechaNac . preg_replace($fecha)
-        }
-        return $fechaNac;
-    } */
+     private function generarQr($nombre,$ci,$id){
+        $equipo = Equipo::where("IDEQUIPO",$this->idEquipo)->first();
+        $nombreQr = $id.time().".svg";
+        $inforJugador = $nombre." ".$ci." ".$equipo->NOMBRE;
+        QrCode::generate($inforJugador,'../public/qrJugadores/'.$nombreQr);
+        return $nombreQr;
+    } 
 }

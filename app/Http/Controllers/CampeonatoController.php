@@ -59,21 +59,24 @@ class CampeonatoController extends Controller
     }
 
     public function pagoMedio(Request $request, $id){
-        $campeonato = Campeonato::find($id);
-        $campeonato->PAGOMITAD = $this->cargarImagen($request->imagen,$id);
-        $producto->save();
+        $file = $request->file("imagen");
+        $nombre = "cpm".time().".".$file->extension();
+        $file->storeAs("",$nombre,'public');
+        $campeonato = Campeonato::where("IDCAMPEONATO",$id)->first();
+        $campeonato->PAGOMITAD = $nombre;
+        $campeonato->save();
+
         return \response()->json(["res"=> true, "message"=>"imagen cargaga"]);
     }
 
-    private function cargarImagen($file, $id){
-        $nombreArchivo = time() . "_{$id}." . $file->getClientOriginalExtension();
-        $file->move(\public_path("imagenes/pagosQr"), $nombreArchivo);
-        return $nombreArchivo;
-    }
     public function pagoCompleto(Request $request, $id){
-        $campeonato = Campeonato::find($id);
-        $campeonato->PAGOCOMPLETO = $this->cargarImagen($request->imagen,$id);
-        $producto->save();
+        $file = $request->file("imagen");
+        $nombre = "cpm".time().".".$file->extension();
+        $file->storeAs("",$nombre,'public');
+        $campeonato = Campeonato::where("IDCAMPEONATO",$id)->first();
+        $campeonato->PAGOCOMPLETO = $nombre;
+        $campeonato->save();
+
         return \response()->json(["res"=> true, "message"=>"imagen cargaga"]);
     }
 

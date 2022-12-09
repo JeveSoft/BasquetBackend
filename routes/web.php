@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/todosCampeonatos', "App\Http\Controllers\CampeonatoController@mostrar");
 
-Route::post('/añadirDelegado',"App\Http\Controllers\DelegadoController@store");
+Route::post('/anadirDelegado',"App\Http\Controllers\DelegadoController@store");
 Route::post('/añadirArbitro',"App\Http\Controllers\ArbitroController@store");
-Route::post('/añadirEquipo',"App\Http\Controllers\EquipoController@store");
-Route::post('/añadirInscripcion',"App\Http\Controllers\InscripcionController@store");
+Route::post('/anadirEquipo',"App\Http\Controllers\EquipoController@store");
+Route::post('/anadirInscripcion',"App\Http\Controllers\InscripcionController@store");
 Route::post('/añadirCampeonato',"App\Http\Controllers\CampeonatoController@store");
 Route::post('/añadirCategoria',"App\Http\Controllers\CategoriaController@store");
 Route::post('/añadirInformacion',"App\Http\Controllers\InformacionController@store");
@@ -87,7 +87,7 @@ Route::post('/upload-users', "App\Http\Controllers\UserController@uploadUsers")-
 /* Delegado Jugador */
 Route::post('/comprobantePagoMedio/{id}',"App\Http\Controllers\InscripcionController@comprobantePagoMedio");
 Route::post('/addJugadoresExcel/{idEquipo}',"App\Http\Controllers\JugadorController@addJugadoresExcel");
-Route::get('/equipos/{categoria}', "App\Http\Controllers\EquipoController@show");
+Route::get('/equipos/{categoria}', "App\Http\Controllers\EquipoController@obtenerEquipos");
 Route::get('/estadoInscripcion/{idDelegado}', "App\Http\Controllers\DelegadoController@estadoInscripcion");
 Route::put('/actualizarDelegado/{id}', "App\Http\Controllers\DelegadoController@update");
 Route::post('/agregarJugador', "App\Http\Controllers\JugadorController@store");
@@ -96,3 +96,12 @@ Route::post('/setImgCi/{id}', "App\Http\Controllers\JugadorController@setImgCi")
 Route::post('/setImgJugador/{id}', "App\Http\Controllers\JugadorController@setImgJugador");
 Route::put('/actualizarJugador/{ci}', "App\Http\Controllers\JugadorController@actualizarJugador");
 Route::delete('/eliminarJugador/{ci}', "App\Http\Controllers\JugadorController@eliminarJugador");
+
+Route::get('/obtenerJugadores/{idEquipo}', "App\Http\Controllers\JugadorController@obtenerJugadores");
+Route::post('/pagoMedio/{idCam}', "App\Http\Controllers\CampeonatoController@pagoMedio");
+Route::post('/pagoCompleto/{idCam}', "App\Http\Controllers\CampeonatoController@pagoCompleto");
+Route::post('/comprobantePago/{idEq}', "App\Http\Controllers\InscripcionController@comprobantePago");
+Route::post('/agregarLogo/{idEq}', "App\Http\Controllers\EquipoController@agregarLogo");
+Route::delete('/eliminarJugadores/{idEq}', "App\Http\Controllers\JugadorController@eliminarJugadores");
+Route::post('/agregarFotoInfo', "App\Http\Controllers\InformacionController@agregarFotoInfo");
+Route::get('/obtenerJugadoresQr/{idE}', "App\Http\Controllers\JugadorController@obtenerJugadoresQr");

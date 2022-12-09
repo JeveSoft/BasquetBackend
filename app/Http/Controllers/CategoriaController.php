@@ -14,7 +14,7 @@ class CategoriaController extends Controller
     }
 
     public function obtenerNombreCategoria () {
-        return Categoria::pluck('IDCATEGORIA');
+        return Categoria::pluck('NOMBRECATEGORIA');
     }
 
     public function eliminar($id){

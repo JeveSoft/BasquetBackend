@@ -50,22 +50,12 @@ class DelegadoController extends Controller
     }
 
     public function estadoInscripcion($id){
-        //$Delegado = Delegado::where("IDDELEGADO",$id)->first();
-        //$equipo = Equipo::with(['Inscripcion:COMPROBANTEPAGO'])
-          //               ->where("IDDELEGADO",$id)->first();
-        //$inscripcion = Inscripcion::where("IDEQUIPO",$equipo->IDEQUIPO)
-                                    //->with(["equipo"])
-                                    //->first();
-        $equipo = Equipo::join("Incripcion","equipo.IDEQUIPO","=","incripcion.IDEQUIPO")->get();
-        
-        /*if($inscripcion->PAGOMEDIO > 0){
-            //PAGOMEDIO
-            return 
-            //return \response()->json(["pagoMedio" => true],200);
-        }else{
-            //pagoentero
-            //return \response()->json(["pagoMedio" => false],200);
-        }*/
+        /* $equipo = Equipo::join("Incripcion","equipo.IDEQUIPO","=","incripcion.IDEQUIPO")
+                            ->where("IDDELEGADO",$id)
+                            ->get(); */
+       $equipo = Inscripcion::join("Equipo","incripcion.IDEQUIPO","=","equipo.IDEQUIPO")
+                            ->where("IDDELEGADO",$id)
+                            ->get();
         return $equipo;
     }
 

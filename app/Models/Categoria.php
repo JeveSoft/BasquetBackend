@@ -9,12 +9,12 @@ class Categoria extends Model
 {
     use HasFactory;
     protected $table="Categoria";
+
     protected $fillable = [
         "IDCATEGORIA",
         "NOMBRECATEGORIA",
         "EDADMIN",
         "EDADMAX"
     ];
-
     public $timestamps = false;
 }

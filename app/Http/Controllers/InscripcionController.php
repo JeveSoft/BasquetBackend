@@ -195,7 +195,10 @@ class InscripcionController extends Controller
         $i=0;
         while($i<count($lista)){
             $equipo = Equipo::where("IDEQUIPO",$lista[$i])->where('CATEGORIA',$id)->first();
-            array_push($listado,$equipo);
+            if ($equipo!== null){
+                array_push($listado,$equipo);
+            }
+
             $i++;
         }
         return $listado;

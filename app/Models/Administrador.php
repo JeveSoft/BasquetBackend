@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Administrador extends Model
 {
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $table="Administrador";
     protected $primaryKey="IDADMINISTRADOR";
     use HasFactory;

@@ -21,5 +21,7 @@ class Delegado extends Model
     "GENERO",
     "CONTRASENA"
     ];
+    public $incrementing = false;
+    protected $keyType = 'string';
     public $timestamps = false;
 }

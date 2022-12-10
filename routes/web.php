@@ -18,10 +18,10 @@ Route::post('/anadirDelegado',"App\Http\Controllers\DelegadoController@store");
 Route::post('/añadirArbitro',"App\Http\Controllers\ArbitroController@store");
 Route::post('/anadirEquipo',"App\Http\Controllers\EquipoController@store");
 Route::post('/anadirInscripcion',"App\Http\Controllers\InscripcionController@store");
-Route::post('/añadirCampeonato',"App\Http\Controllers\CampeonatoController@store");
-Route::post('/añadirCategoria',"App\Http\Controllers\CategoriaController@store");
+Route::post('/anadirCampeonato',"App\Http\Controllers\CampeonatoController@store");
+Route::post('/anadirCategoria',"App\Http\Controllers\CategoriaController@store");
 Route::post('/añadirInformacion',"App\Http\Controllers\InformacionController@store");
-Route::post('/añadirPartido',"App\Http\Controllers\PartidosController@store");
+Route::post('/anadirPartido',"App\Http\Controllers\PartidosController@store");
 
 Route::get('/nombreCategorias', "App\Http\Controllers\CategoriaController@obtenerNombreCategoria");
 

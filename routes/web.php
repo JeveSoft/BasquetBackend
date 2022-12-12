@@ -105,3 +105,7 @@ Route::post('/agregarLogo/{idEq}', "App\Http\Controllers\EquipoController@agrega
 Route::delete('/eliminarJugadores/{idEq}', "App\Http\Controllers\JugadorController@eliminarJugadores");
 Route::post('/agregarFotoInfo', "App\Http\Controllers\InformacionController@agregarFotoInfo");
 Route::get('/obtenerJugadoresQr/{idE}', "App\Http\Controllers\JugadorController@obtenerJugadoresQr");
+/* Para produccion */
+/* Route::get('/{any}',function(){
+    return view('index');
+})->where('any','.*'); */

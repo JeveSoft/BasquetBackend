@@ -80,4 +80,15 @@ class CampeonatoController extends Controller
         return \response()->json(["res"=> true, "message"=>"imagen cargaga"]);
     }
 
+    public function agregarReglamento(Request $request,$id){
+        $file = $request->file("reglamento");
+        $nombre = "regla".time().".".$file->extension();
+        $file->storeAs("",$nombre,'public');
+        $campeonato = Campeonato::where("IDCAMPEONATO",$id)->first();
+        $campeonato->DESCRIPCION = $nombre;
+        $campeonato->save();
+
+        return \response()->json(["res"=> true, "message"=>"Reglamento cargado"]);
+    }
+
 }

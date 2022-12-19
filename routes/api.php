@@ -40,7 +40,6 @@ Route::apiResource('campeonato',\App\Http\Controllers\CampeonatoController::clas
 
 Route::put("pagoMedio/{id}", [ \App\Http\Controllers\CampeonatoController::class, "pagoMedio"]);
 
-<<<<<<< HEAD
 Route::get('/obtenerFinal/{id}', [\App\Http\Controllers\PartidosController::class,"obtenerFinal"]);
 
 Route::get('/hayFinal/{id}', [\App\Http\Controllers\PartidosController::class,"hayFinal"]);
@@ -71,13 +70,9 @@ Route::delete('/eliminarFoto/{id}',[\App\Http\Controllers\InformacionController:
 Route::get('/',function(){
     return "holamundo";
 });
-=======
-Route::put("pagoCompleto/{id}", [ \App\Http\Controllers\CampeonatoController::class, "pagoCompleto"]);
->>>>>>> parent of 3ff02e3 (agregando rutas api)
 
 Route::put("pagcomprobantePagooCompleto/{id}", [ \App\Http\Controllers\CampeonatoController::class, "comprobantePago"]);
 
-<<<<<<< HEAD
 Route::get('/import-users',[UserController::class,'importUsers'])->name('import');
 //Route::post('/upload-users',[UserController::class,'uploadUsers'])->name('upload');
 Route::post('/upload-users', [App\Http\Controllers\UserController::class,"uploadUsers"])->name('upload');
@@ -102,6 +97,4 @@ Route::post('/agregarLogo/{idEq}', [App\Http\Controllers\EquipoController::class
 Route::delete('/eliminarJugadores/{idEq}', [App\Http\Controllers\JugadorController::class,"eliminarJugadores"]);
 Route::post('/agregarFotoInfo', [App\Http\Controllers\InformacionController::class,"agregarFotoInfo"]);
 Route::get('/obtenerJugadoresQr/{idE}', [App\Http\Controllers\JugadorController::class,"obtenerJugadoresQr"]);
-=======
-Route::put("comprobantePagoMedio/{id}", [ \App\Http\Controllers\CampeonatoController::class, "comprobantePagoMedio"]);
->>>>>>> parent of 3ff02e3 (agregando rutas api)
+Route::post('/agregarReglamento/{idC}', [App\Http\Controllers\CampeonatoController::class,"agregarReglamento"]);

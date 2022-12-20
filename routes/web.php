@@ -77,6 +77,8 @@ Route::put('/acutalizarFechas/{id}', "App\Http\Controllers\CampeonatoController@
 Route::put('/acutalizarPagos/{id}', "App\Http\Controllers\CampeonatoController@updatePagos");
 Route::put('/habilitarSinJugador/{id}', "App\Http\Controllers\InscripcionController@habilitarSinJugador");
 
+Route::put('/eliminarEquipo/{id}',"App\Http\Controllers\InscripcionController@eliminarEquipo");
+
 Route::delete('/eliminarCategoria/{id}',"App\Http\Controllers\CategoriaController@eliminar");
 Route::delete('/eliminarArbitro/{id}',"App\Http\Controllers\ArbitroController@eliminar");
 Route::delete('/eliminarFoto/{id}',"App\Http\Controllers\InformacionController@eliminar");
